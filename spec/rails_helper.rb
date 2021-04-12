@@ -22,7 +22,7 @@ require 'rspec/rails'
 #
 # Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 Shoulda::Matchers.configure do |config|
-  config.integreate do |with|
+  config.integrate do |with|
     with.test_framework :rspec
     with.library :rails
   end
