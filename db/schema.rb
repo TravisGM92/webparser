@@ -10,15 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_12_225410) do
+ActiveRecord::Schema.define(version: 2021_04_13_221640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "categories", force: :cascade do |t|
+    t.string "keyword"
+    t.bigint "supplement_id"
+    t.index ["supplement_id"], name: "index_categories_on_supplement_id"
+  end
+
   create_table "supplements", force: :cascade do |t|
     t.string "title"
     t.string "summary"
-    t.text "categories", default: "--- []\n"
   end
 
+  add_foreign_key "categories", "supplements"
 end
