@@ -7,7 +7,7 @@ RSpec.describe 'AllSupplements' do
       # Total of ALL products, not just supplements
     end
     it '.only_consumables' do
-      
+      expect(AllSupplements.only_consumables).to eq(300)
     end
   end
 end

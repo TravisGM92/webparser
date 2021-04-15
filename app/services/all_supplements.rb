@@ -9,4 +9,8 @@ class AllSupplements
     items = result.css(".az-list-columns").text.split("\n").map { |item| item.gsub(/\s+/, "")}
     items.select { |item| item.length > 1}
   end
+
+  def self.only_consumables
+    require "pry"; binding.pry
+  end
 end
