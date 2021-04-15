@@ -6,11 +6,17 @@ class AllSupplements
 
   def self.all_products
     result = conn
-    items = result.css(".az-list-columns").text.split("\n").map { |item| item.gsub(/\s+/, "")}
+    items = result.css(".az-list-columns").text.split("\n").map { |item| item.strip }
     items.select { |item| item.length > 1}
   end
 
+  def self.non_consumable_keywords
+    ['card', 'gift', 'machine', 'T-Shirt', 't-shirt', 'shirt', 'Empty', 'scale', 'tank', 'bottle']
+  end
+
   def self.only_consumables
-    require "pry"; binding.pry
+    all_products.select do |item|
+      !non_consumable_keywords.any? { |keyword| item.downcase.include?(keyword)}
+    end
   end
 end

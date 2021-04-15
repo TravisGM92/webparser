@@ -7,7 +7,12 @@ RSpec.describe 'AllSupplements' do
       # Total of ALL products, not just supplements
     end
     it '.only_consumables' do
-      expect(AllSupplements.only_consumables).to eq(300)
+      results = AllSupplements.only_consumables
+      expect(results.length).to eq(462)
+      non_consumable_keywords = ['card', 'gift', 'machine', 'T-Shirt', 't-shirt', 'shirt', 'Empty', 'scale', 'tank', 'bottle']
+      results.each do |item|
+        expect(non_consumable_keywords.any? { |keyword| item.downcase == keyword }).to be_falsy
+      end
     end
   end
 end
