@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+.hidden {
+  visibility: hidden;
+}
+
+.hidden input[type="text"] {
+  visibility: hidden;
+}

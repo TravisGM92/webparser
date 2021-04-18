@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form class="test" action="/supplements" method="post">
+      <label for="id" class="hidden"></label>
+      <input type="text" name="id" class="hidden" value="<%=Supplement.first.id%>">
+      <input type="submit" name="" value="<%=Supplement.first.title%>">
+    </form>
+
+  </body>
+</html>
