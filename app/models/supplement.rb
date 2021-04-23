@@ -14,6 +14,8 @@ class Supplement < ApplicationRecord
     end
   end
 
+  private
+
   def self.categories
     {
       ['increased muscle mass'] => 'muscle mass',
