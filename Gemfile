@@ -35,6 +35,8 @@ gem 'json'
 gem 'httparty'
 gem 'nokogiri'
 gem 'faraday'
+gem 'mechanize'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
