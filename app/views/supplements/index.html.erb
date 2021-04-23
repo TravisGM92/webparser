@@ -13,11 +13,15 @@
           <label for="id" class="hidden"></label>
           <input type="text" name="id" class="hidden" value="<%=supplement.id%>">
           <input type="submit" name="" class="supplement-button" value="<%=supplement.title%>">
-          <p>Good for...</p><%supplement.categories.each do |category| %>
-            <% if supplement.categories[-1] == category %>
+          <p>Good for...</p><%supplement.categories.each_with_index do |category, index| %>
+            <% if supplement.categories.length == 1 %>
               <%= category.keyword.capitalize %>
             <% else %>
-              <%= category.keyword.capitalize %>,
+              <% if index == 0 %>
+                <%= category.keyword.capitalize %>,
+              <% else %>
+                <%= category.keyword %>,
+              <% end %>
             <% end %>
           <% end %>
             <br><br>

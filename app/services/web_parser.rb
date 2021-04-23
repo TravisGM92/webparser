@@ -32,9 +32,15 @@ class WebParser
   end
 
   def self.product_info_hash(page)
+    results = []
     product_name = page.title.split('|')[0].strip.delete('â€ ')
     description = page.search('div.product-description p').text.delete('â€ ').delete('†')
     benefits = page.search('div.product-description li').text.delete('â€ ').delete('†').split("\n")
+    if benefits.empty?
+      product_description_and_benefits = page.search('div.product-description').text.split("\n")
+      product_description_and_benefits.each_with_index { |string, index| string.downcase.include?('benefits') ? results << product_description_and_benefits[index+1] : next}
+      benefits = results.join
+    end
     return {
       title: product_name,
       description: description,
