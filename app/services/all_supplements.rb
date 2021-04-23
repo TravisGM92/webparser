@@ -4,19 +4,15 @@ class AllSupplements
     Nokogiri::HTML(html)
   end
 
-  def self.all_products
-    result = conn
-    items = result.css(".az-list-columns").text.split("\n").map { |item| item.strip }
-    items.select { |item| item.length > 1}
-  end
-
   def self.non_consumable_keywords
     ['card', 'gift', 'machine', 'T-Shirt', 't-shirt', 'shirt', 'Empty', 'scale', 'tank', 'bottle']
   end
 
-  def self.only_consumables
-    all_products.select do |item|
-      !non_consumable_keywords.any? { |keyword| item.downcase.include?(keyword)}
+  def self.only_consumables(links)
+    results = []
+    links.each do |link|
+      !non_consumable_keywords.any? { |keyword| link.downcase.include?(keyword)} ? results << link : next
     end
+    results
   end
 end

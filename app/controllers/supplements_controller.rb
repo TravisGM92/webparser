@@ -1,6 +1,8 @@
 class SupplementsController < ApplicationController
   def index
-    @creatine = Supplement.first
+    AllSupplements.create_supplements
+    AllSupplements.attach_categories
+    @all_supplements = Supplements.all
   end
 
   def test

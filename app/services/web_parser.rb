@@ -1,31 +1,43 @@
 class WebParser
-  def self.conn(item)
-    html = URI.open("https://www.bulksupplements.com/products/#{item}?")
-    Nokogiri::HTML(html)
+  def self.bulk_supplements_products
+    agent = Mechanize.new
+    agent.get('https://www.bulksupplements.com/pages/products-a-z')
   end
 
-  def self.get_title(item)
-    result = ''
-    title = conn(item).css("h1").text
-    title.tr('^A-Za-z0-9', '').chars.each_with_index do |letter, index|
-      (letter == letter.capitalize && index != 0) ? result += " #{letter}" : result += letter
+
+  def self.summary_and_benefits
+    results = []
+    errors = []
+    agent = Mechanize.new
+    AllSupplements.only_consumables(all_product_links).each do |link|
+      # sleep(1)
+      begin
+        # page = agent.get(link)
+        results << product_info_hash(agent.get(link))
+      rescue Mechanize::ResponseCodeError => e
+        errors << { error_code: e, link: link }
+      end
     end
-    result
+    return results
   end
 
-  def self.get_summary(item)
-    summary = ''
-    description = conn(item).css('.product-description').text.split("\n")
-    description.each_with_index { |desc, index| desc.include?('What Is') ? summary += description[index + 1] : next}
-    summary
-  end
-
-  def self.get_benefits(item)
-    benefits = []
-    bulleted_benefits = conn(item).css('.product-description ul').text.split("\n").reject { |c| c.empty? }
-    bulleted_benefits.each do |benefit|
-      benefits << benefit.gsub(/[^0-9a-z ]/i, '')
+  def self.all_product_links
+    links = []
+    site = 'https://www.bulksupplements.com'
+    bulk_supplements_products.links.each do |link|
+      link.href[0..4] == '/prod' ? links.append(site + link.href) : next
     end
-    benefits
+    links
+  end
+
+  def self.product_info_hash(page)
+    product_name = page.title.split('|')[0].strip.delete('â€ ')
+    description = page.search('div.product-description p').text.delete('â€ ').delete('†')
+    benefits = page.search('div.product-description li').text.delete('â€ ').delete('†').split("\n")
+    return {
+      title: product_name,
+      description: description,
+      benefits: benefits
+    }
   end
 end
