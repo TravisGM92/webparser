@@ -1,9 +1,4 @@
 class AllSupplements
-  def self.conn
-    html = URI.open("https://www.bulksupplements.com/pages/products-a-z")
-    Nokogiri::HTML(html)
-  end
-
 
   def self.only_consumables(links)
     results = []

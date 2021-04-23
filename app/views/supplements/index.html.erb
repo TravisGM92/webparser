@@ -5,11 +5,27 @@
     <title></title>
   </head>
   <body>
-    <form class="test" action="/supplements" method="post">
-      <label for="id" class="hidden"></label>
-      <input type="text" name="id" class="hidden" value="<%=Supplement.first.id%>">
-      <input type="submit" name="" value="<%=Supplement.first.title%>">
-    </form>
+    <% x = 0 %>
+    <% @all_supplements.each do |supplement| %>
+      <div class="supplement-<%=x%>">
+
+        <form class="supplement" action="/supplements" method="post">
+          <label for="id" class="hidden"></label>
+          <input type="text" name="id" class="hidden" value="<%=supplement.id%>">
+          <input type="submit" name="" class="supplement-button" value="<%=supplement.title%>">
+          <p>Good for...</p><%supplement.categories.each do |category| %>
+            <% if supplement.categories[-1] == category %>
+              <%= category.keyword.capitalize %>
+            <% else %>
+              <%= category.keyword.capitalize %>,
+            <% end %>
+          <% end %>
+            <br><br>
+            <hr>
+          </form>
+        </div>
+      <%x += 1 %>
+    <% end %>
 
   </body>
 </html>

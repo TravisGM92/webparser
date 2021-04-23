@@ -1,8 +1,6 @@
 class SupplementsController < ApplicationController
   def index
-    AllSupplements.create_supplements
-    AllSupplements.attach_categories
-    @all_supplements = Supplements.all
+    @all_supplements = Supplement.all
   end
 
   def test

@@ -18,6 +18,7 @@
   visibility: hidden;
 }
 
-.hidden input[type="text"] {
-  visibility: hidden;
+.supplement-button {
+  margin-left: -120px;
+  margin-bottom: 10px;
 }
