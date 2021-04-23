@@ -3,7 +3,7 @@ class SupplementsController < ApplicationController
     @all_supplements = Supplement.all
   end
 
-  def test
+  def show
     @supp = Supplement.find_by(id: params['id'].to_i)
   end
 end
