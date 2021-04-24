@@ -1,9 +1,4 @@
 class WebParser
-  def self.bulk_supplements_products
-    agent = Mechanize.new
-    agent.get('https://www.bulksupplements.com/pages/products-a-z')
-  end
-
 
   def self.summary_and_benefits
     results = []
@@ -12,7 +7,6 @@ class WebParser
     AllSupplements.only_consumables(all_product_links).each do |link|
       # sleep(1)
       begin
-        # page = agent.get(link)
         results << product_info_hash(agent.get(link))
       rescue Mechanize::ResponseCodeError => e
         errors << { error_code: e, link: link }
@@ -28,6 +22,13 @@ class WebParser
       link.href[0..4] == '/prod' ? links.append(site + link.href) : next
     end
     links
+  end
+
+  private
+
+  def self.bulk_supplements_products
+    agent = Mechanize.new
+    agent.get('https://www.bulksupplements.com/pages/products-a-z')
   end
 
   def self.product_info_hash(page)

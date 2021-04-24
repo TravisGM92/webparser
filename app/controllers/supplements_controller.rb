@@ -1,11 +1,9 @@
 class SupplementsController < ApplicationController
   def index
-    AllSupplements.create_supplements
-    AllSupplements.attach_categories
-    @all_supplements = Supplements.all
+    @all_supplements = Supplement.all
   end
 
-  def test
+  def show
     @supp = Supplement.find_by(id: params['id'].to_i)
   end
 end

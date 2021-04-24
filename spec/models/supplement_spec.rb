@@ -9,17 +9,18 @@ RSpec.describe Supplement, type: :model do
     it { should have_many :categories }
   end
   describe 'methods' do
-    it 'add_benefit_categories()' do
-      # keyword = 'creatine-monohydrate'
-      # supp = Supplement.create!(title: WebParser.get_title(keyword), summary: WebParser.get_summary(keyword))
-      # expect(supp.categories).to be_empty
-      # Supplement.add_benefit_categories(keyword, supp)
-      # expect(supp.categories).to_not be_empty
-      # expect(supp.categories.count).to eq(4)
-      # expected_benefits = ['muscle mass', 'weight gain', 'anaerobic strength', 'nootropic']
-      # expected_benefits.each do |benefit|
-      #   expect(supp.categories.pluck(:keyword).include?(benefit)).to be_truthy
-      # end
+    it 'self.add_benefit_categories()' do
+
+      supp = Supplement.create!(title: 'TEST-Creatine', summary: 'The stuff to take')
+      benefits = ['increased muscle mass', 'cognitive function', 'plus overall health']
+      expect(supp.categories).to be_empty
+      Supplement.add_benefit_categories(benefits, supp)
+
+      expect(supp.categories.count).to eq(3)
+      expected_benefits = ['muscle mass', 'nootropic', 'overall health']
+      expected_benefits.each do |benefit|
+        expect(supp.categories.pluck(:keyword).include?(benefit)).to be_truthy
+      end
     end
   end
 end
