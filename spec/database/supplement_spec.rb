@@ -6,6 +6,7 @@ RSpec.describe Supplement, type: :model do
       expect(Supplement.count).to eq(403)
     end
     it 'supplements should have categories' do
+      require "pry"; binding.pry
       expect(Supplement.first.categories).to_not be_empty
       expect(Supplement.last.categories).to_not be_empty
       expect(Supplement.last.title).to eq('Zinc Oxide Powder')

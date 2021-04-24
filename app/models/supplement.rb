@@ -3,12 +3,30 @@ class Supplement < ApplicationRecord
   has_many :categories
 
   def self.add_benefit_categories(benefits, supplement)
-    benefits.each do |bulk_benefit|
-      categories.each do |key, value|
-        key.each do |our_benefit|
-          if bulk_benefit.downcase.include?(our_benefit.downcase)
+    if benefits.class == Array
+      benefits.each do |bulk_benefit|
+        categories.each do |key, value|
+          key.each do |our_benefit|
+            if bulk_benefit.downcase.include?(our_benefit.downcase)
+              supplement.categories.find_or_create_by!(keyword: value)
+            end
+          end
+        end
+      end
+    else
+      add_benefit_categories_from_string(benefits, supplement)
+    end
+  end
+
+  def self.add_benefit_categories_from_string(benefits, supplement)
+    categories.each do |key, value|
+      key.each do |our_benefit|
+        if our_benefit == 'sleep' && benefits.downcase.include?(our_benefit.downcase)
+          if !supplement.title.downcase.include?('caffeine')
             supplement.categories.find_or_create_by!(keyword: value)
           end
+        elsif benefits.downcase.include?(our_benefit.downcase)
+          supplement.categories.find_or_create_by!(keyword: value)
         end
       end
     end
