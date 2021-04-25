@@ -32,6 +32,15 @@ class Supplement < ApplicationRecord
     end
   end
 
+  def self.related_supplements(id, keyword)
+    category = Category.find(id.to_i)
+    related_supplements = Supplement.joins(:categories).where(categories: {keyword: keyword})
+    {
+      keyword: keyword,
+      related_supplements: related_supplements
+    }
+  end
+
   private
 
   def self.categories

@@ -5,8 +5,22 @@
     <title></title>
   </head>
   <body>
-    <%= @supp.title %>
-    <br><br>
-    <%= @supp.summary %>
+    <div class="supplement-info">
+      <%= @supp.title %>
+      <br><br>
+      <%= @supp.summary %>
+      <p>Click a benefit below to see other supplements with the same benefit:</p>
+      <div class="supplement-categories-div">
+        <% @supp.categories.each do |category| %>
+        <form class="supplement-categories" action="/search" method="post">
+          <label for="id" class="hidden"></label>
+          <input type="text" name="id" class="hidden" value="<%=category.id%>">
+          <input type="text" name="keyword" class="hidden" value="<%=category.keyword%>">
+          <input type="submit" name="" class="category-button" value="<%=category.keyword.capitalize%>">
+        </form>
+        <% end %>
+
+      </div>
+    </div>
   </body>
 </html>
