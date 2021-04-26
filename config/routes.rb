@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   get '/supplements', to: 'supplements#index'
   post '/supplements', to: 'supplements#show'
   get '/test', to: 'supplements#test'
+  post '/search', to: 'supplements#search'
 end

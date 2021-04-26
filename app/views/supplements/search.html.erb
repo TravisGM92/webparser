@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Related Supplements</title>
+  </head>
+  <body>
+    <%x = 0 %>
+    <h1>All supplements related to <%= @related_supplements[:keyword] %>...</h1>
+    <% @related_supplements[:related_supplements].each do |supplement| %>
+      <div class="related_supplement-<%=x%>">
+
+        <form class="supplement" action="/supplements" method="post">
+          <label for="id" class="hidden"></label>
+          <input type="text" name="id" class="hidden" value="<%=supplement.id%>">
+          <input type="submit" name="" class="supplement-button" value="<%=supplement.title%>">
+            <hr>
+          </form>
+        </div>
+        <%x += 1 %>
+    <% end %>
+
+  </body>
+</html>

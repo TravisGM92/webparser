@@ -19,8 +19,10 @@
             <% else %>
               <% if index == 0 %>
                 <%= category.keyword.capitalize %>,
-              <% else %>
+              <% elsif category != supplement.categories[-1] %>
                 <%= category.keyword %>,
+              <% else %>
+                <%= category.keyword %>
               <% end %>
             <% end %>
           <% end %>
