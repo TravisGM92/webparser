@@ -4,4 +4,10 @@ Rails.application.routes.draw do
   post '/supplements', to: 'supplements#show'
   get '/test', to: 'supplements#test'
   post '/search', to: 'supplements#search'
+
+  namespace :api do
+    namespace :v1 do
+      resources :supplements, only: %i[index]
+    end
+  end
 end

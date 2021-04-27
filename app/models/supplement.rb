@@ -1,6 +1,7 @@
 class Supplement < ApplicationRecord
   validates_presence_of :title, :summary
   has_many :categories
+  accepts_nested_attributes_for :categories
 
   def self.add_benefit_categories(benefits, supplement)
     if benefits.class == Array
