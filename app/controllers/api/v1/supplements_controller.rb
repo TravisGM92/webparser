@@ -4,6 +4,10 @@ module Api
       def index
         render json: SupplementSerializer.new(Supplement.all)
       end
+
+      def show
+        render json: SupplementSerializer.new(Supplement.find(params[:id]))
+      end
     end
   end
 end
