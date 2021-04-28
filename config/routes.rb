@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get '/supplements', to: 'supplements#index'
       get '/supplements/:id', to: 'supplements#show'
       get '/supplement/find', to: 'search#show'
+      get '/categories', to: 'categories#index'
     end
   end
 end
