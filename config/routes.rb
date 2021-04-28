@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :supplements, only: %i[index show]
+      get '/supplements', to: 'supplements#index'
+      get '/supplements/:id', to: 'supplements#show'
+      get '/supplement/find', to: 'search#show'
     end
   end
 end

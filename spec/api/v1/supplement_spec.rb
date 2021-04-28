@@ -39,6 +39,20 @@ RSpec.describe 'Supplement API call' do
         expect(json[:data][:id].to_i).to eq(supplement.id)
         expect(json[:data][:attributes].keys).to eq(%i[title summary categories])
       end
+      it 'can get supplements with similar categories' do
+        supplements = create_list(:supplement, 10)
+        supplements[0..7].each do |supplement|
+          supplement.categories.create!(keyword: 'energy')
+          supplement.categories.create!(keyword: 'heart health')
+        end
+        supplements[8..9].each do |supplement|
+          supplement.categories.create!(keyword: 'sexual health')
+        end
+        get '/api/v1/supplement/find?keyword=energy'
+        expect(response).to be_successful
+        json = JSON.parse(response.body, symbolize_names: true)
+        expect(json[:data].length).to eq(8)
+      end
     end
   end
 end
