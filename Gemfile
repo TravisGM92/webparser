@@ -36,12 +36,16 @@ gem 'httparty'
 gem 'nokogiri'
 gem 'faraday'
 gem 'mechanize'
+gem 'figaro'
+gem 'fast_jsonapi'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   gem 'pry'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do

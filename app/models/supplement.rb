@@ -1,6 +1,7 @@
 class Supplement < ApplicationRecord
   validates_presence_of :title, :summary
   has_many :categories
+  accepts_nested_attributes_for :categories
 
   def self.add_benefit_categories(benefits, supplement)
     if benefits.class == Array
@@ -32,13 +33,8 @@ class Supplement < ApplicationRecord
     end
   end
 
-  def self.related_supplements(id, keyword)
-    category = Category.find(id.to_i)
-    related_supplements = Supplement.joins(:categories).where(categories: {keyword: keyword})
-    {
-      keyword: keyword,
-      related_supplements: related_supplements
-    }
+  def self.related_supplements(keyword)
+    Supplement.joins(:categories).where(categories: {keyword: keyword})
   end
 
   private
