@@ -41,8 +41,9 @@ class WebParser
       product_description_and_benefits.each_with_index { |string, index| string.downcase.include?('benefits') ? results << product_description_and_benefits[index+1] : next}
       benefits = results.join
     end
+    keyword = "— BulkSupplements.com"
     return {
-      title: product_name,
+      title: product_name.gsub(keyword, ''),
       description: description,
       benefits: benefits
     }
